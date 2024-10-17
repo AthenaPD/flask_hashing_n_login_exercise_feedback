@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="mt-5">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {% if field.type == 'BooleanField' %}
+            <div class="mb-3 form-check form-switch">
+                {{ field.label(class_="form-check-label") }}
+                {{ field(class_="form-check-input") }}
+            {% else %}
+            <div class="mb-3">
+                {{ field.label(class_="form-label fw-semibold fs-5") }}
+                {{ field(class_="form-control") }}
+            {% endif %}
+                {% for err in field.errors %}
+                    <span class="form-text text-danger">{{ err }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+</div>
+{% endblock %}
